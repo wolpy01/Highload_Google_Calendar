@@ -246,7 +246,20 @@
 
 ### 3.2 Алгоритм балансировки
 
-Для глобальной балансировки будет использоваться GeoDNS, который будет направлять пользователя в ближайший по местоположению дата-центр.
+- Для глобальной балансировки будет использоваться `Geo-based DNS`, который будет направлять пользователя в ближайший по местоположению дата-центр.
+
+- Для обеспечения лучшего качества для тех регионов, которые наиболее удалены от основных дата центров дополнительно используем `CDN`.
+
+- Также используем `Latency-based DNS`, который будет направлять пользователя в дата-центр, обеспечивающий наименьшую задержку (latency) [[14]](https://tutorialsdojo.com/latency-routing-vs-geoproximity-routing-vs-geolocation-routing/).
+
+
+Таким образом, схема глобальной балансировки ключает следующее:
+
+1. GeoDNS выбирает ближайшую группу CDN.
+2. BGP Anycast до ближайшего CDN.
+3. Для ускорения работы и уменьшения задержки CDN кэширует статику.
+
+
 
 ## Список использованных источников
 
@@ -263,3 +276,4 @@
 11. https://hypestat.com/info/calendar.google.com
 12. https://webstatsdomain.org/d/calendar.google.com
 13. https://www.visualcapitalist.com/cp/top-data-center-markets/
+14. https://tutorialsdojo.com/latency-routing-vs-geoproximity-routing-vs-geolocation-routing/
